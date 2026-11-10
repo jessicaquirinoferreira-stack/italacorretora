@@ -1,0 +1,142 @@
+{
+  "entities": {
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Configurações institucionais da corretora, identidade visual e redes sociais",
+      "type": "object",
+      "properties": {
+        "brokerName": { "type": "string", "maxLength": 120 },
+        "creci": { "type": "string", "maxLength": 50 },
+        "bio": { "type": "string", "maxLength": 1000 },
+        "photoUrl": { "type": "string", "maxLength": 1000 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "whatsapp": { "type": "string", "maxLength": 30 },
+        "email": { "type": "string", "maxLength": 100 },
+        "cities": { "type": "string", "maxLength": 200 },
+        "instagram": { "type": "string", "maxLength": 200 },
+        "facebook": { "type": "string", "maxLength": 200 },
+        "youtube": { "type": "string", "maxLength": 200 },
+        "linkedin": { "type": "string", "maxLength": 200 },
+        "tiktok": { "type": "string", "maxLength": 200 },
+        "heroTitle": { "type": "string", "maxLength": 200 },
+        "heroSubtitle": { "type": "string", "maxLength": 400 },
+        "heroImage": { "type": "string", "maxLength": 1000 },
+        "aboutText": { "type": "string", "maxLength": 2000 },
+        "googleAnalyticsId": { "type": "string", "maxLength": 100 },
+        "googleAdsId": { "type": "string", "maxLength": 100 },
+        "searchConsoleSite": { "type": "string", "maxLength": 200 },
+        "updatedAt": { "type": "string" }
+      }
+    },
+    "Development": {
+      "title": "Development",
+      "description": "Empreendimento imobiliário na vitrine pública e área administrativa",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 150 },
+        "slug": { "type": "string", "maxLength": 150 },
+        "subtitle": { "type": "string", "maxLength": 200 },
+        "developer": { "type": "string", "maxLength": 100 },
+        "city": { "type": "string", "maxLength": 80 },
+        "neighborhood": { "type": "string", "maxLength": 80 },
+        "address": { "type": "string", "maxLength": 200 },
+        "startingPrice": { "type": "number" },
+        "propertyType": { "type": "string", "maxLength": 50 },
+        "areaMin": { "type": "number" },
+        "areaMax": { "type": "number" },
+        "bedrooms": { "type": "number" },
+        "suites": { "type": "number" },
+        "bathrooms": { "type": "number" },
+        "parkingSpots": { "type": "number" },
+        "status": { "type": "string", "maxLength": 30 },
+        "deliveryForecast": { "type": "string", "maxLength": 50 },
+        "coverImage": { "type": "string", "maxLength": 1000 },
+        "description": { "type": "string", "maxLength": 5000 },
+        "featured": { "type": "boolean" },
+        "published": { "type": "boolean" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "slug", "city", "propertyType", "status", "coverImage"]
+    },
+    "LandingPage": {
+      "title": "LandingPage",
+      "description": "Página de aterrissagem comercial dedicada a um empreendimento específico",
+      "type": "object",
+      "properties": {
+        "developmentId": { "type": "string", "maxLength": 100 },
+        "developmentTitle": { "type": "string", "maxLength": 150 },
+        "slug": { "type": "string", "maxLength": 150 },
+        "templateId": { "type": "string", "maxLength": 50 },
+        "headline": { "type": "string", "maxLength": 200 },
+        "subheadline": { "type": "string", "maxLength": 400 },
+        "customPriceText": { "type": "string", "maxLength": 100 },
+        "ctaWhatsAppText": { "type": "string", "maxLength": 100 },
+        "heroImageUrl": { "type": "string", "maxLength": 1000 },
+        "active": { "type": "boolean" },
+        "viewsCount": { "type": "number" },
+        "leadsCount": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["developmentId", "slug", "templateId", "headline"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Contato comercial captado através dos formulários do site e landing pages",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 120 },
+        "whatsapp": { "type": "string", "maxLength": 30 },
+        "email": { "type": "string", "maxLength": 100 },
+        "developmentId": { "type": "string", "maxLength": 100 },
+        "developmentTitle": { "type": "string", "maxLength": 150 },
+        "investmentRange": { "type": "string", "maxLength": 80 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "origin": { "type": "string", "maxLength": 100 },
+        "pageUrl": { "type": "string", "maxLength": 500 },
+        "campaign": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "maxLength": 30 },
+        "notes": { "type": "string", "maxLength": 2000 },
+        "lgpdConsent": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "whatsapp", "status", "lgpdConsent"]
+    },
+    "AnalyticsEvent": {
+      "title": "AnalyticsEvent",
+      "description": "Registro de eventos e métricas de conversão e visitas",
+      "type": "object",
+      "properties": {
+        "eventType": { "type": "string", "maxLength": 50 },
+        "pageUrl": { "type": "string", "maxLength": 500 },
+        "developmentId": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["eventType", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/settings/{settingsId}": {
+      "schema": "SiteSettings",
+      "description": "Configurações globais e identidade institucional"
+    },
+    "/developments/{developmentId}": {
+      "schema": "Development",
+      "description": "Empreendimentos cadastrados e exibidos no site"
+    },
+    "/landingPages/{landingPageId}": {
+      "schema": "LandingPage",
+      "description": "Landing pages exclusivas geradas para captação"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Leads captados por formulários públicos e campanhas"
+    },
+    "/analyticsEvents/{eventId}": {
+      "schema": "AnalyticsEvent",
+      "description": "Eventos de conversão e acessos a páginas"
+    }
+  }
+}

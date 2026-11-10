@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default Deny Catch-All
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Connection Healthcheck Document
+    match /test/{docId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    // Site Settings (Public Read, Admin Write)
+    match /settings/{settingsId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(settingsId);
+    }
+
+    // Real Estate Developments (Public Read, Admin Write)
+    match /developments/{devId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(devId);
+    }
+
+    // Landing Pages (Public Read, Admin Write)
+    match /landingPages/{pageId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(pageId);
+    }
+
+    // Leads (Public Create with strict validation, Admin Read & Manage)
+    match /leads/{leadId} {
+      allow read: if isSignedIn();
+      allow create: if isValidId(leadId) &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
+        request.resource.data.name.size() <= 120 &&
+        request.resource.data.whatsapp is string &&
+        request.resource.data.whatsapp.size() > 0 &&
+        request.resource.data.whatsapp.size() <= 30 &&
+        request.resource.data.lgpdConsent == true;
+      allow update, delete: if isSignedIn() && isValidId(leadId);
+    }
+
+    // Analytics Events (Public Log, Admin Read)
+    match /analyticsEvents/{eventId} {
+      allow create: if isValidId(eventId) &&
+        request.resource.data.eventType is string &&
+        request.resource.data.eventType.size() <= 50;
+      allow read, delete: if isSignedIn() && isValidId(eventId);
+    }
+  }
+}
